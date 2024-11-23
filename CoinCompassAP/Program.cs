@@ -14,10 +14,6 @@ var connectionString = builder.Configuration.GetConnectionString("ConnectionDB")
 builder.Services.AddDbContextPool<DataContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddIdentity<User, ApplicationRole>()
-    .AddEntityFrameworkStores<DataContext>()
-    .AddDefaultTokenProviders();
-
 // Add services to the container
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

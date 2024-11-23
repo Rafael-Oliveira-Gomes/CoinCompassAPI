@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoinCompassAPI.Infrastructure.Persistence
 {
-    public class DataContext : IdentityDbContext<User, ApplicationRole, string>
+    public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> opts) : base(opts) { }
 
@@ -17,10 +17,6 @@ namespace CoinCompassAPI.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            builder.Entity<User>().ToTable("AspNetUsers").HasKey(t => t.Id);
-
-            base.OnModelCreating(builder);
         }
     }
 }
