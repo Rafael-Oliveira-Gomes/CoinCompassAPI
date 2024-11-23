@@ -1,0 +1,6 @@
+@CoinCompassAP_HostAddress = http://localhost:5056
+
+GET {{CoinCompassAP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
