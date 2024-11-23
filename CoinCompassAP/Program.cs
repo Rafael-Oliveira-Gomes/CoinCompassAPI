@@ -1,9 +1,24 @@
+using CoinCompassAPI.Domain.Entities;
+using CoinCompassAPI.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+
+// Configure the database context to use SQL Server.
+var connectionString = builder.Configuration.GetConnectionString("ConnectionDB");
+
+builder.Services.AddDbContextPool<DataContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddIdentity<User, ApplicationRole>()
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
+
+// Add services to the container
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -16,7 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-        c.RoutePrefix = string.Empty; // Set Swagger UI at app's root
+        c.RoutePrefix = string.Empty;
     });
 }
 
