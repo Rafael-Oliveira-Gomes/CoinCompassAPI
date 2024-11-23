@@ -24,5 +24,4 @@ MyFinanceAPI é uma API desenvolvida em .NET para ajudar a controlar finanças, 
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/MyFinanceAPI.git
-   cd MyFinanceAPI
+   git clone https://github.com/Rafael-Oliveira-Gomes/CoinCompassAPI
