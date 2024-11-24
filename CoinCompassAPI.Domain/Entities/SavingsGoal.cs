@@ -9,5 +9,23 @@
         public decimal CurrentAmount { get; set; }
         public DateTime TargetDate { get; set; }
 
+
+        public SavingsGoal(int userId, string goalName, decimal targetAmount, decimal currentAmount, DateTime targetDate)
+        {
+            UserId = userId;
+            GoalName = goalName;
+            TargetAmount = targetAmount;
+            CurrentAmount = currentAmount;
+            TargetDate = targetDate;
+        }
+
+        public void Update(int userId, string goalName, decimal targetAmount, decimal currentAmount, DateTime targetDate)
+        {
+            UserId = userId;
+            GoalName = goalName;
+            TargetAmount = targetAmount;
+            CurrentAmount = currentAmount;
+            TargetDate = targetDate;
+        }
     }
 }
