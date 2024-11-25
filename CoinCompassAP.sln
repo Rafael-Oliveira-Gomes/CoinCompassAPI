@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinCompassAPI.Domain", "Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinCompassAPI.Infrastructure", "CoinCompassAPI.Infrastructure\CoinCompassAPI.Infrastructure.csproj", "{A55407F3-DADF-4A50-83AC-252F5E10A117}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinCompass.Test", "CoinCompass.Test\CoinCompass.Test.csproj", "{84C4B546-355E-48F6-91DA-B3060184FBAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A55407F3-DADF-4A50-83AC-252F5E10A117}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A55407F3-DADF-4A50-83AC-252F5E10A117}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A55407F3-DADF-4A50-83AC-252F5E10A117}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84C4B546-355E-48F6-91DA-B3060184FBAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84C4B546-355E-48F6-91DA-B3060184FBAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84C4B546-355E-48F6-91DA-B3060184FBAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84C4B546-355E-48F6-91DA-B3060184FBAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
