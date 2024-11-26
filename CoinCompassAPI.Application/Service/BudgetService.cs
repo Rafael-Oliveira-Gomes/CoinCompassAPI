@@ -10,6 +10,11 @@ namespace CoinCompassAPI.Application.Service
     public class BudgetService : IBudgetService
     {
         public readonly IBudgetRepository _budgetRepository;
+
+        public BudgetService(IBudgetRepository budgetRepository)
+        {
+            _budgetRepository = budgetRepository;
+        }
         public async Task<bool> AtualizarBudget(int id, CreateBudgetDto BudgetDto)
         {
             var orcamento = await _budgetRepository.ConsultarOrcamentoPorID(id);
