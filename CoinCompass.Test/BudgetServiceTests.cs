@@ -38,7 +38,7 @@ public class BudgetServiceTests
 
         // Assert
         Assert.True(result);
-        _mockRepository.Verify(r => r.Update(It.IsAny<Budget>()), Times.Once);
+        _mockRepository.Verify(r => r.UpdateAsync(It.IsAny<Budget>()), Times.Once);
     }
 
     [Fact]
