@@ -11,6 +11,8 @@ namespace CoinCompassAPI.Domain.Entities
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
+
+        public Budget() { }
         public Budget(int userId, string category, decimal amount, DateTime startDate, DateTime endDate)
         {
             UserId = userId;

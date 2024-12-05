@@ -8,6 +8,8 @@
         public decimal Balance { get; set; }
         public string BankName { get; set; }
 
+        public Account() { }
+
         public Account(int userId, string accountType, decimal balance, string bankName)
         {
             UserId = userId;

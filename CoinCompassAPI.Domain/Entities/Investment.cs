@@ -10,6 +10,7 @@
         public DateTime EndDate { get; set; }
         public float InterestRate { get; set; }
 
+        public Investment() { }
         public Investment(int userId, string investmentType, decimal amount, DateTime startDate, DateTime endDate)
         {
             UserId = userId;

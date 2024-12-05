@@ -10,6 +10,8 @@
         public DateTime TargetDate { get; set; }
 
 
+        public SavingsGoal() { }
+
         public SavingsGoal(int userId, string goalName, decimal targetAmount, decimal currentAmount, DateTime targetDate)
         {
             UserId = userId;

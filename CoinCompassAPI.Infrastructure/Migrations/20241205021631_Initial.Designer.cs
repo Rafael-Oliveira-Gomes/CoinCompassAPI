@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoinCompassAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241123151123_initial")]
-    partial class initial
+    [Migration("20241205021631_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,21 +35,23 @@ namespace CoinCompassAPI.Infrastructure.Migrations
 
                     b.Property<string>("AccountType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("Balance")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("BankName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contas");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("CoinCompassAPI.Domain.Entities.Budget", b =>
@@ -65,7 +67,8 @@ namespace CoinCompassAPI.Infrastructure.Migrations
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -78,7 +81,7 @@ namespace CoinCompassAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orcamentos");
+                    b.ToTable("Budgets", (string)null);
                 });
 
             modelBuilder.Entity("CoinCompassAPI.Domain.Entities.Investment", b =>
@@ -95,12 +98,13 @@ namespace CoinCompassAPI.Infrastructure.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<float>("InterestRate")
-                        .HasColumnType("real");
+                    b.Property<double>("InterestRate")
+                        .HasColumnType("float");
 
                     b.Property<string>("InvestmentType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -110,7 +114,44 @@ namespace CoinCompassAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Investimentos");
+                    b.ToTable("Investments", (string)null);
+                });
+
+            modelBuilder.Entity("CoinCompassAPI.Domain.Entities.Outgoings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("AmountOutGoings")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("HowPaid")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TypeOutgoings")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Outgoings", (string)null);
                 });
 
             modelBuilder.Entity("CoinCompassAPI.Domain.Entities.SavingsGoal", b =>
@@ -126,7 +167,8 @@ namespace CoinCompassAPI.Infrastructure.Migrations
 
                     b.Property<string>("GoalName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal>("TargetAmount")
                         .HasColumnType("decimal(18,2)");
@@ -139,7 +181,7 @@ namespace CoinCompassAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MetaEconomias");
+                    b.ToTable("SavingsGoals", (string)null);
                 });
 
             modelBuilder.Entity("CoinCompassAPI.Domain.Entities.Transaction", b =>
@@ -161,15 +203,17 @@ namespace CoinCompassAPI.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transacoes");
+                    b.ToTable("Transactions", (string)null);
                 });
 #pragma warning restore 612, 618
         }
