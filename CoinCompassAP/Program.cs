@@ -1,5 +1,9 @@
+using CoinCompassAPI.Application.Interface;
+using CoinCompassAPI.Application.Service;
 using CoinCompassAPI.Domain.Entities;
+using CoinCompassAPI.Infrastructure.Interface;
 using CoinCompassAPI.Infrastructure.Persistence;
+using CoinCompassAPI.Infrastructure.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +22,24 @@ builder.Services.AddDbContextPool<DataContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//repository
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
+builder.Services.AddScoped<IInvestimentoRepository, InvestmentRepository>();
+builder.Services.AddScoped<ISavingsGoalRepository, SavingsGoalRepository>();
+builder.Services.AddScoped<ITransacaoRepository, TransactionRepository>();
+
+//services
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IBudgetService, BudgetService>();
+builder.Services.AddScoped<IInvestmentService, InvestmentService>();
+builder.Services.AddScoped<ISavingsGoalService, SavingsGoalService>();
+builder.Services.AddScoped<ITransactionService, TransasctionService>();
+
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
