@@ -28,6 +28,7 @@ builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
 builder.Services.AddScoped<IInvestimentoRepository, InvestmentRepository>();
 builder.Services.AddScoped<ISavingsGoalRepository, SavingsGoalRepository>();
 builder.Services.AddScoped<ITransacaoRepository, TransactionRepository>();
+builder.Services.AddScoped<IOutgoingRepository, OutgoingsRepository>();
 
 //services
 builder.Services.AddScoped<IAccountService, AccountService>();
@@ -35,6 +36,7 @@ builder.Services.AddScoped<IBudgetService, BudgetService>();
 builder.Services.AddScoped<IInvestmentService, InvestmentService>();
 builder.Services.AddScoped<ISavingsGoalService, SavingsGoalService>();
 builder.Services.AddScoped<ITransactionService, TransasctionService>();
+builder.Services.AddScoped<IOutgoingsService, OutgoingsService>();
 
 
 var app = builder.Build();

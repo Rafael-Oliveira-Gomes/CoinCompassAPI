@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CoinCompassAPI.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CoinCompassAPI.Domain.Entities.Mappings
+namespace CoinCompassAPI.Infrastructure.Mappings
 {
     public class OutgoingsMap : IEntityTypeConfiguration<Outgoings>
     {

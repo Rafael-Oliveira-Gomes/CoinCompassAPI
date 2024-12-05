@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using CoinCompassAPI.Domain.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using CoinCompassAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoinCompassAPI.Infrastructure.Persistence
@@ -14,13 +12,14 @@ namespace CoinCompassAPI.Infrastructure.Persistence
         public DbSet<Investment> Investimentos { get; set; }
         public DbSet<SavingsGoal> MetaEconomias { get; set; }
         public DbSet<Budget> Orcamentos { get; set; }
+        public DbSet<Outgoings> Gastos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new Mappings.AccountMap());
             modelBuilder.ApplyConfiguration(new Mappings.BudgetMap());
             modelBuilder.ApplyConfiguration(new Mappings.InvestmentMap());
-            //modelBuilder.ApplyConfiguration(new Mappings.OutgoingsMap());
+            modelBuilder.ApplyConfiguration(new Mappings.OutgoingsMap());
             modelBuilder.ApplyConfiguration(new Mappings.SavingsGoalMap());
             modelBuilder.ApplyConfiguration(new Mappings.TransactionMap());
 

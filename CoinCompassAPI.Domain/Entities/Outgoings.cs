@@ -10,5 +10,25 @@
         public string HowPaid { get; set; }
         public decimal AmountOutGoings { get; set; }
 
+        public Outgoings(int userId, string typeOutgoings, DateTime date, string description, string howPaid, decimal amountOutgoings)
+        {
+            UserId = userId;
+            TypeOutgoings = typeOutgoings;
+            Date = date;
+            Description = description;
+            HowPaid = howPaid;
+            AmountOutGoings = amountOutgoings;
+
+        }
+
+        public void Update(int userId, string typeOutgoings, DateTime date, string description, string howPaid, decimal amountOutgoings)
+        {
+            UserId = userId;
+            TypeOutgoings = typeOutgoings;
+            Date = date;
+            Description = description;
+            HowPaid = howPaid;
+            AmountOutGoings = amountOutgoings;
+        }
     }
 }
