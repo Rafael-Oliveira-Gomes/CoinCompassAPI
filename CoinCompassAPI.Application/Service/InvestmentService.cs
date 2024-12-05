@@ -10,6 +10,11 @@ namespace CoinCompassAPI.Application.Service
     public class InvestmentService : IInvestmentService
     {
         public readonly IInvestimentoRepository _investimentoRepository;
+        public InvestmentService(IInvestimentoRepository investimentoRepository)
+        {
+            _investimentoRepository = investimentoRepository;
+        }
+
         public async Task<bool> AtualizarInvestment(int id, CreateInvestmentDto InvestmentDto)
         {
             var investimento = await _investimentoRepository.ConsultarInvestimentoPorID(id);

@@ -10,6 +10,11 @@ namespace CoinCompassAPI.Application.Service
     public class SavingsGoalService : ISavingsGoalService
     {
         public readonly ISavingsGoalRepository _savingsGoalRepository;
+
+        public SavingsGoalService(ISavingsGoalRepository savingsGoalRepository)
+        {
+            _savingsGoalRepository = savingsGoalRepository;
+        }
         public async Task<bool> AtualizarSavingsGoal(int id, CreateSavingsGoalDto SavingsGoalDto)
         {
             var metasEconomias = await _savingsGoalRepository.ConsultarMetaEconomiaPorID(id);

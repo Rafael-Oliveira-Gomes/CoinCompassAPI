@@ -1,9 +1,7 @@
-﻿using CoinCompassAPI.Application.DTOs.Account;
-using CoinCompassAPI.Application.DTOs.Budget;
+﻿using CoinCompassAPI.Application.DTOs.Budget;
 using CoinCompassAPI.Application.Interface;
 using CoinCompassAPI.Domain.Entities;
 using CoinCompassAPI.Infrastructure.Interface;
-using CoinCompassAPI.Infrastructure.Repository;
 
 namespace CoinCompassAPI.Application.Service
 {

@@ -10,6 +10,12 @@ namespace CoinCompassAPI.Application.Service
     public class TransasctionService : ITransactionService
     {
         private readonly ITransacaoRepository _transactionRepository;
+
+        public TransasctionService(ITransacaoRepository transactionRepository)
+        {
+            _transactionRepository = transactionRepository;
+        }
+
         public async Task<bool> AtualizarTransaction(int id, CreateTransactionDto TransactionDto)
         {
             var transacao = await _transactionRepository.ConsultarTansacaoPorID(id);
