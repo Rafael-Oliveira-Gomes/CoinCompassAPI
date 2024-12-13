@@ -8,6 +8,7 @@
         public decimal TargetAmount { get; set; }
         public decimal CurrentAmount { get; set; }
         public DateTime TargetDate { get; set; }
+        public virtual Budget Budget { get; set; }
 
 
         public SavingsGoal() { }

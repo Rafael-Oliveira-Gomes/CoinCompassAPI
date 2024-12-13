@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoinCompassAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241205021631_Initial")]
-    partial class Initial
+    [Migration("20241213212256_initil")]
+    partial class initil
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -162,6 +162,9 @@ namespace CoinCompassAPI.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BudgetId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("CurrentAmount")
                         .HasColumnType("decimal(18,2)");
 
@@ -180,6 +183,8 @@ namespace CoinCompassAPI.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BudgetId");
 
                     b.ToTable("SavingsGoals", (string)null);
                 });
@@ -214,6 +219,17 @@ namespace CoinCompassAPI.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Transactions", (string)null);
+                });
+
+            modelBuilder.Entity("CoinCompassAPI.Domain.Entities.SavingsGoal", b =>
+                {
+                    b.HasOne("CoinCompassAPI.Domain.Entities.Budget", "Budget")
+                        .WithMany()
+                        .HasForeignKey("BudgetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Budget");
                 });
 #pragma warning restore 612, 618
         }

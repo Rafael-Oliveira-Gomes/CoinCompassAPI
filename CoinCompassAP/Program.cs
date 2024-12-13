@@ -1,5 +1,6 @@
 using CoinCompassAPI.Application.Interface;
 using CoinCompassAPI.Application.Service;
+using CoinCompassAPI.Application.Util;
 using CoinCompassAPI.Domain.Entities;
 using CoinCompassAPI.Infrastructure.Interface;
 using CoinCompassAPI.Infrastructure.Persistence;
@@ -37,11 +38,9 @@ builder.Services.AddScoped<IInvestmentService, InvestmentService>();
 builder.Services.AddScoped<ISavingsGoalService, SavingsGoalService>();
 builder.Services.AddScoped<ITransactionService, TransasctionService>();
 builder.Services.AddScoped<IOutgoingsService, OutgoingsService>();
-
+builder.Services.AddScoped<ValidacoesFinanceiras>();
 
 var app = builder.Build();
-
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -49,7 +48,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoinPass V1");
         c.RoutePrefix = string.Empty;
     });
 }

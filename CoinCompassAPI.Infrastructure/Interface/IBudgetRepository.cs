@@ -6,6 +6,7 @@ namespace CoinCompassAPI.Infrastructure.Interface
     {
         Task<IEnumerable<Budget>> ConsultarOrcamentos(int skip, int take);
         Task<Budget> ConsultarOrcamentoPorID(int id);
+        Task<Budget> ConsultarOrcamentoPorUsuarioId(int usuarioId);
 
     }
 }
