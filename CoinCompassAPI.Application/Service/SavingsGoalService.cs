@@ -1,6 +1,7 @@
 ﻿using CoinCompassAPI.Application.DTOs.Account;
 using CoinCompassAPI.Application.DTOs.SavingsGoal;
 using CoinCompassAPI.Application.Interface;
+using CoinCompassAPI.Application.Util;
 using CoinCompassAPI.Domain.Entities;
 using CoinCompassAPI.Infrastructure.Interface;
 using CoinCompassAPI.Infrastructure.Repository;
@@ -10,10 +11,14 @@ namespace CoinCompassAPI.Application.Service
     public class SavingsGoalService : ISavingsGoalService
     {
         public readonly ISavingsGoalRepository _savingsGoalRepository;
+        public readonly IBudgetRepository _budgetRepository;
+        private readonly ValidacoesFinanceiras _validacoesFinanceiras;
 
-        public SavingsGoalService(ISavingsGoalRepository savingsGoalRepository)
+        public SavingsGoalService(ISavingsGoalRepository savingsGoalRepository, IBudgetRepository budgetRepository, ValidacoesFinanceiras validacoesFinanceiras)
         {
+            _validacoesFinanceiras = validacoesFinanceiras;
             _savingsGoalRepository = savingsGoalRepository;
+            _budgetRepository = budgetRepository;
         }
         public async Task<bool> AtualizarSavingsGoal(int id, CreateSavingsGoalDto SavingsGoalDto)
         {
@@ -30,6 +35,9 @@ namespace CoinCompassAPI.Application.Service
 
         public async Task CadastrarSavingsGoal(CreateSavingsGoalDto SavingsGoalDto)
         {
+
+            _validacoesFinanceiras.VerificarOrcamento(SavingsGoalDto.UsuarioId, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.DataObjetivo);
+
             var metasEconomias = new SavingsGoal(SavingsGoalDto.UsuarioId, SavingsGoalDto.NomeMeta, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.DataObjetivo);
             await _savingsGoalRepository.AddAsync(metasEconomias);
         }

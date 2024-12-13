@@ -1,5 +1,6 @@
 ﻿using CoinCompassAPI.Application.DTOs.SavingsGoal;
 using CoinCompassAPI.Application.Service;
+using CoinCompassAPI.Application.Util;
 using CoinCompassAPI.Domain.Entities;
 using CoinCompassAPI.Infrastructure.Interface;
 using Moq;
@@ -9,12 +10,19 @@ namespace CoinCompass.Test
     public class SavingsGoalServiceTests
     {
         private readonly Mock<ISavingsGoalRepository> _savingsGoalRepositoryMock;
+        private readonly Mock<IBudgetRepository> _budgetRepositoryMock;
+        private readonly Mock<ValidacoesFinanceiras> _validacoesFinanceirasMock;
         private readonly SavingsGoalService _savingsGoalService;
 
         public SavingsGoalServiceTests()
         {
             _savingsGoalRepositoryMock = new Mock<ISavingsGoalRepository>();
-            _savingsGoalService = new SavingsGoalService(_savingsGoalRepositoryMock.Object);
+            _budgetRepositoryMock = new Mock<IBudgetRepository>();
+            _validacoesFinanceirasMock = new Mock<ValidacoesFinanceiras>();
+            _savingsGoalService = new SavingsGoalService(
+                _savingsGoalRepositoryMock.Object,
+                _budgetRepositoryMock.Object,
+                _validacoesFinanceirasMock.Object);
         }
 
         [Fact]
