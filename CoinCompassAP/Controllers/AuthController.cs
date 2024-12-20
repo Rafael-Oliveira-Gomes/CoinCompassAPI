@@ -1,4 +1,5 @@
 ﻿using CoinCompassAPI.Application.DTOs.User;
+using CoinCompassAPI.Application.Interface;
 using CoinCompassAPI.Application.Service;
 using CoinCompassAPI.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -11,9 +12,9 @@ namespace CoinCompassAP.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserService _authService;
+        private readonly IUserService _authService;
 
-        public AuthController(UserService authService)
+        public AuthController(IUserService authService)
         {
             _authService = authService;
         }

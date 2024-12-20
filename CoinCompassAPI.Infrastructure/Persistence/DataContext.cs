@@ -1,9 +1,11 @@
 ﻿using CoinCompassAPI.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoinCompassAPI.Infrastructure.Persistence
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
         public DataContext(DbContextOptions<DataContext> opts) : base(opts) { }
 
@@ -13,10 +15,11 @@ namespace CoinCompassAPI.Infrastructure.Persistence
         public DbSet<SavingsGoal> MetaEconomias { get; set; }
         public DbSet<Budget> Orcamentos { get; set; }
         public DbSet<Outgoings> Gastos { get; set; }
-        public DbSet<ApplicationUser> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfiguration(new Mappings.AccountMap());
             modelBuilder.ApplyConfiguration(new Mappings.BudgetMap());
             modelBuilder.ApplyConfiguration(new Mappings.InvestmentMap());
@@ -24,8 +27,6 @@ namespace CoinCompassAPI.Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new Mappings.SavingsGoalMap());
             modelBuilder.ApplyConfiguration(new Mappings.TransactionMap());
             modelBuilder.ApplyConfiguration(new Mappings.ApplicationUserMap());
-
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

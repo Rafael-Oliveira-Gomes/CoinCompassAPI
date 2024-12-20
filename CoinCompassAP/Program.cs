@@ -85,16 +85,16 @@ builder.Services.AddSwaggerGen(c => {
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//repository
+// Repositories
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
 builder.Services.AddScoped<IInvestimentoRepository, InvestmentRepository>();
 builder.Services.AddScoped<ISavingsGoalRepository, SavingsGoalRepository>();
 builder.Services.AddScoped<ITransacaoRepository, TransactionRepository>();
 builder.Services.AddScoped<IOutgoingRepository, OutgoingsRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>(); 
 
-//services
+// Services
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IBudgetService, BudgetService>();
 builder.Services.AddScoped<IInvestmentService, InvestmentService>();

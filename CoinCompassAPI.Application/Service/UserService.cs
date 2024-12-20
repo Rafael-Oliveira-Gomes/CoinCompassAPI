@@ -1,10 +1,10 @@
-﻿using CoinCompassAPI.Application.DTOs.User;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using CoinCompassAPI.Application.DTOs.User;
 using CoinCompassAPI.Application.Interface;
 using CoinCompassAPI.Domain.Entities;
-using CoinCompassAPI.Infrastructure.Repository;
+using CoinCompassAPI.Infrastructure.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -14,14 +14,14 @@ namespace CoinCompassAPI.Application.Service
 {
     public class UserService : IUserService
     {
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public UserService(UserRepository userRepository, IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
+        public UserService(IUserRepository userRepository, IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
 
