@@ -13,6 +13,7 @@ namespace CoinCompassAPI.Infrastructure.Persistence
         public DbSet<SavingsGoal> MetaEconomias { get; set; }
         public DbSet<Budget> Orcamentos { get; set; }
         public DbSet<Outgoings> Gastos { get; set; }
+        public DbSet<ApplicationUser> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,7 @@ namespace CoinCompassAPI.Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new Mappings.OutgoingsMap());
             modelBuilder.ApplyConfiguration(new Mappings.SavingsGoalMap());
             modelBuilder.ApplyConfiguration(new Mappings.TransactionMap());
+            modelBuilder.ApplyConfiguration(new Mappings.ApplicationUserMap());
 
             base.OnModelCreating(modelBuilder);
         }
