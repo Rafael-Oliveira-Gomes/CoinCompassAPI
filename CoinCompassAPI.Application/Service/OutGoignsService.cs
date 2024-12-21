@@ -8,10 +8,12 @@ namespace CoinCompassAPI.Application.Service
     public class OutgoingsService : IOutgoingsService
     {
         private readonly IOutgoingRepository _outgoingsRepository;
+        private readonly IUserService _userService;
 
-        public OutgoingsService(IOutgoingRepository outgoingsRepository)
+        public OutgoingsService(IOutgoingRepository outgoingsRepository, IUserService userService)
         {
             _outgoingsRepository = outgoingsRepository;
+            _userService = userService;
         }
 
         public async Task<bool> AtualizarOutGoings(int id, CreateOutgoingsDto outGoingstDto)
@@ -22,7 +24,7 @@ namespace CoinCompassAPI.Application.Service
                 throw new Exception("gasto não encontrado para consultar!");
             }
 
-            gasto.Update(outGoingstDto.UserId, outGoingstDto.TipoDespesa, outGoingstDto.Data, outGoingstDto.Descricao, outGoingstDto.FormaPagamento, outGoingstDto.ValorDespesa);
+            gasto.Update(outGoingstDto.TipoDespesa, outGoingstDto.Data, outGoingstDto.Descricao, outGoingstDto.FormaPagamento, outGoingstDto.ValorDespesa);
 
             return true;
         }
@@ -42,8 +44,6 @@ namespace CoinCompassAPI.Application.Service
 
             return new CreateOutgoingsDto
             {
-
-                UserId = gasto.UserId,
                 Descricao = gasto.Description,
                 Data = gasto.Date,
                 ValorDespesa = gasto.AmountOutGoings,
@@ -55,7 +55,8 @@ namespace CoinCompassAPI.Application.Service
 
         public async Task CriarOutGoings(CreateOutgoingsDto OutGoingsDto)
         {
-            var gasto = new Outgoings(OutGoingsDto.UserId, OutGoingsDto.TipoDespesa, OutGoingsDto.Data, OutGoingsDto.Descricao, OutGoingsDto.FormaPagamento, OutGoingsDto.ValorDespesa);
+            var currentUser = await _userService.GetCurrentUser();
+            var gasto = new Outgoings(currentUser.Id, OutGoingsDto.TipoDespesa, OutGoingsDto.Data, OutGoingsDto.Descricao, OutGoingsDto.FormaPagamento, OutGoingsDto.ValorDespesa);
             await _outgoingsRepository.AddAsync(gasto);
         }
 

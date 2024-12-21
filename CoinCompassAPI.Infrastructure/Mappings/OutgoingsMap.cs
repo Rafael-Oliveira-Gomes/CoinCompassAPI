@@ -35,6 +35,11 @@ namespace CoinCompassAPI.Infrastructure.Mappings
             builder.Property(o => o.AmountOutGoings)
                 .IsRequired()
                 .HasColumnType("decimal(18,2)");
+
+            builder.HasOne(a => a.User)
+                .WithMany()
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

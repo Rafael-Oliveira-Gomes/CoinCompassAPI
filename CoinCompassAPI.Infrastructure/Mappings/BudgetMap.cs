@@ -32,6 +32,11 @@ namespace CoinCompassAPI.Infrastructure.Mappings
 
             builder.Property(b => b.EndDate)
                 .IsRequired();
+
+            builder.HasOne(a => a.User)
+                .WithMany()
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
