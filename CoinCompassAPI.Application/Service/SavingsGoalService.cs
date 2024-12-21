@@ -39,8 +39,7 @@ namespace CoinCompassAPI.Application.Service
         {
             var currentUser = await _userService.GetCurrentUser();
 
-            //ajuste no card #2
-            //_validacoesFinanceiras.VerificarOrcamento(SavingsGoalDto.UsuarioId, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.DataObjetivo);
+            _validacoesFinanceiras.VerificarOrcamento(currentUser.Id, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.DataObjetivo);
 
             var metasEconomias = new SavingsGoal(currentUser.Id, SavingsGoalDto.NomeMeta, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.DataObjetivo);
             await _savingsGoalRepository.AddAsync(metasEconomias);
