@@ -1,5 +1,6 @@
 ﻿using CoinCompassAPI.Application.DTOs.Investment;
 using CoinCompassAPI.Application.Interface;
+using CoinCompassAPI.Application.Util;
 using CoinCompassAPI.Domain.Entities;
 using CoinCompassAPI.Infrastructure.Interface;
 
@@ -9,10 +10,12 @@ namespace CoinCompassAPI.Application.Service
     {
         private readonly IInvestimentoRepository _investimentoRepository;
         private readonly IUserService _userService;
-        public InvestmentService(IInvestimentoRepository investimentoRepository, IUserService userService)
+        private readonly ValidacoesFinanceiras _validacoesFinanceiras;
+        public InvestmentService(IInvestimentoRepository investimentoRepository, IUserService userService, ValidacoesFinanceiras validacoesFinanceiras)
         {
             _investimentoRepository = investimentoRepository;
             _userService = userService;
+            _validacoesFinanceiras = validacoesFinanceiras;
         }
 
         public async Task<bool> AtualizarInvestment(int id, CreateInvestmentDto InvestmentDto)
@@ -31,7 +34,9 @@ namespace CoinCompassAPI.Application.Service
         public async Task CadastrarInvestment(CreateInvestmentDto InvestmentDto)
         {
             var currentUser = await _userService.GetCurrentUser();
+            _validacoesFinanceiras.VerificarOrcamento(currentUser.Id,InvestmentDto.Quantia, InvestmentDto.DataFim);
             var investimento = new Investment(currentUser.Id, InvestmentDto.TipoInvestimento, InvestmentDto.Quantia, InvestmentDto.DataInicio, InvestmentDto.DataFim);
+
             await _investimentoRepository.AddAsync(investimento);
         }
 
