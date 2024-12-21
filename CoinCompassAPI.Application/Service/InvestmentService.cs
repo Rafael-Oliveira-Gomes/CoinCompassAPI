@@ -1,18 +1,18 @@
-﻿using CoinCompassAPI.Application.DTOs.Account;
-using CoinCompassAPI.Application.DTOs.Investment;
+﻿using CoinCompassAPI.Application.DTOs.Investment;
 using CoinCompassAPI.Application.Interface;
 using CoinCompassAPI.Domain.Entities;
 using CoinCompassAPI.Infrastructure.Interface;
-using CoinCompassAPI.Infrastructure.Repository;
 
 namespace CoinCompassAPI.Application.Service
 {
     public class InvestmentService : IInvestmentService
     {
-        public readonly IInvestimentoRepository _investimentoRepository;
-        public InvestmentService(IInvestimentoRepository investimentoRepository)
+        private readonly IInvestimentoRepository _investimentoRepository;
+        private readonly IUserService _userService;
+        public InvestmentService(IInvestimentoRepository investimentoRepository, IUserService userService)
         {
             _investimentoRepository = investimentoRepository;
+            _userService = userService;
         }
 
         public async Task<bool> AtualizarInvestment(int id, CreateInvestmentDto InvestmentDto)
@@ -23,14 +23,15 @@ namespace CoinCompassAPI.Application.Service
                 throw new Exception("investimento não encontrado para atualizar.");
             }
 
-            investimento.Update(InvestmentDto.UsuarioId, InvestmentDto.TipoInvestimento, InvestmentDto.Quantia, InvestmentDto.DataInicio, InvestmentDto.DataFim);
+            investimento.Update(InvestmentDto.TipoInvestimento, InvestmentDto.Quantia, InvestmentDto.DataInicio, InvestmentDto.DataFim);
 
             return true;
         }
 
         public async Task CadastrarInvestment(CreateInvestmentDto InvestmentDto)
         {
-            var investimento = new Investment(InvestmentDto.UsuarioId, InvestmentDto.TipoInvestimento, InvestmentDto.Quantia, InvestmentDto.DataInicio, InvestmentDto.DataFim);
+            var currentUser = await _userService.GetCurrentUser();
+            var investimento = new Investment(currentUser.Id, InvestmentDto.TipoInvestimento, InvestmentDto.Quantia, InvestmentDto.DataInicio, InvestmentDto.DataFim);
             await _investimentoRepository.AddAsync(investimento);
         }
 
@@ -50,7 +51,6 @@ namespace CoinCompassAPI.Application.Service
             return new CreateInvestmentDto
             {
                 
-                UsuarioId = investimento.UserId,
                 TipoInvestimento = investimento.InvestmentType,
                 Quantia = investimento.Amount,
                 TaxaJuros = investimento.InterestRate,

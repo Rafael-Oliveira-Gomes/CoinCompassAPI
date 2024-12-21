@@ -13,12 +13,14 @@ namespace CoinCompassAPI.Application.Service
         public readonly ISavingsGoalRepository _savingsGoalRepository;
         public readonly IBudgetRepository _budgetRepository;
         private readonly ValidacoesFinanceiras _validacoesFinanceiras;
+        private readonly IUserService _userService;
 
-        public SavingsGoalService(ISavingsGoalRepository savingsGoalRepository, IBudgetRepository budgetRepository, ValidacoesFinanceiras validacoesFinanceiras)
+        public SavingsGoalService(ISavingsGoalRepository savingsGoalRepository, IBudgetRepository budgetRepository, ValidacoesFinanceiras validacoesFinanceiras, IUserService userService)
         {
             _validacoesFinanceiras = validacoesFinanceiras;
             _savingsGoalRepository = savingsGoalRepository;
             _budgetRepository = budgetRepository;
+            _userService = userService;
         }
         public async Task<bool> AtualizarSavingsGoal(int id, CreateSavingsGoalDto SavingsGoalDto)
         {
@@ -28,17 +30,19 @@ namespace CoinCompassAPI.Application.Service
                 throw new Exception("metasEconomias não encontrado para atualizar.");
             }
 
-            metasEconomias.Update(SavingsGoalDto.UsuarioId, SavingsGoalDto.NomeMeta, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.QuantiaAtual, SavingsGoalDto.DataObjetivo);
+            metasEconomias.Update(SavingsGoalDto.NomeMeta, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.QuantiaAtual, SavingsGoalDto.DataObjetivo);
 
             return true;
         }
 
         public async Task CadastrarSavingsGoal(CreateSavingsGoalDto SavingsGoalDto)
         {
+            var currentUser = await _userService.GetCurrentUser();
 
-            _validacoesFinanceiras.VerificarOrcamento(SavingsGoalDto.UsuarioId, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.DataObjetivo);
+            //ajuste no card #2
+            //_validacoesFinanceiras.VerificarOrcamento(SavingsGoalDto.UsuarioId, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.DataObjetivo);
 
-            var metasEconomias = new SavingsGoal(SavingsGoalDto.UsuarioId, SavingsGoalDto.NomeMeta, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.DataObjetivo);
+            var metasEconomias = new SavingsGoal(currentUser.Id, SavingsGoalDto.NomeMeta, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.QuantiaObjetivo, SavingsGoalDto.DataObjetivo);
             await _savingsGoalRepository.AddAsync(metasEconomias);
         }
 
@@ -57,8 +61,6 @@ namespace CoinCompassAPI.Application.Service
 
             return new CreateSavingsGoalDto
             {
-
-                UsuarioId = metaEconomica.UserId,
                 NomeMeta = metaEconomica.GoalName,
                 DataObjetivo = metaEconomica.TargetDate,
                 QuantiaAtual = metaEconomica.CurrentAmount,

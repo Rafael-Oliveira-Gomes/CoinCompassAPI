@@ -5,15 +5,16 @@ namespace CoinCompassAPI.Domain.Entities
     public class Budget
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
         public string Category {  get; set; }
         public decimal Amount { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string UserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
 
         public Budget() { }
-        public Budget(int userId, string category, decimal amount, DateTime startDate, DateTime endDate)
+        public Budget(string userId, string category, decimal amount, DateTime startDate, DateTime endDate)
         {
             UserId = userId;
             Category = category;
@@ -22,9 +23,8 @@ namespace CoinCompassAPI.Domain.Entities
             EndDate = endDate;
         }
 
-        public void Update(int userId, string category, decimal amount, DateTime startDate, DateTime endDate)
+        public void Update(string category, decimal amount, DateTime startDate, DateTime endDate)
         {
-            UserId = userId;
             Category = category;
             Amount = amount;
             StartDate = startDate;

@@ -8,9 +8,11 @@ namespace CoinCompassAPI.Application.Service
     public class AccountService : IAccountService
     {
         private readonly IAccountRepository _accountRepository;
-        public AccountService(IAccountRepository accountRepository)
+        private readonly IUserService _userService;
+        public AccountService(IAccountRepository accountRepository, IUserService userService)
         {
             _accountRepository = accountRepository;
+            _userService = userService;
         }
 
         public async Task<bool> AtualizarAccount(int id, CreateAccountDto AccountDto)
@@ -21,14 +23,15 @@ namespace CoinCompassAPI.Application.Service
                 throw new Exception("Conta não encontrado para atualizar.");
             }
 
-            conta.Update(AccountDto.UsuarioId, AccountDto.TipoConta, AccountDto.Saldo, AccountDto.NomeBanco);
+            conta.Update(AccountDto.TipoConta, AccountDto.Saldo, AccountDto.NomeBanco);
 
             return true;
         }
 
         public async Task CriarAccount(CreateAccountDto AccountDto)
         {
-            var conta = new Account(AccountDto.UsuarioId, AccountDto.TipoConta, AccountDto.Saldo, AccountDto.NomeBanco);
+            var currentUser = await _userService.GetCurrentUser();
+            var conta = new Account(currentUser.Id, AccountDto.TipoConta, AccountDto.Saldo, AccountDto.NomeBanco);
             await _accountRepository.AddAsync(conta);
         }   
 
@@ -48,7 +51,6 @@ namespace CoinCompassAPI.Application.Service
             return new CreateAccountDto
             {
                 
-                UsuarioId = conta.UserId,
                 TipoConta = conta.AccountType,
                 Saldo = conta.Balance,
                 NomeBanco = conta.BankName,
