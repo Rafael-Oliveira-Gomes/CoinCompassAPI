@@ -1,4 +1,6 @@
-﻿namespace CoinCompassAPI.Domain.Entities
+﻿using System.Globalization;
+
+namespace CoinCompassAPI.Domain.Entities
 {
     public class Transaction
     {

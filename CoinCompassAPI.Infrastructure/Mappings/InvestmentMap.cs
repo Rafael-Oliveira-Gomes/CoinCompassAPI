@@ -36,6 +36,11 @@ namespace CoinCompassAPI.Infrastructure.Mappings
             builder.Property(i => i.InterestRate)
                 .IsRequired()
                 .HasColumnType("float");
+
+            builder.HasOne(a => a.User)
+                .WithMany()
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

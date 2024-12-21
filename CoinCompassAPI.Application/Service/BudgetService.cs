@@ -7,11 +7,13 @@ namespace CoinCompassAPI.Application.Service
 {
     public class BudgetService : IBudgetService
     {
-        public readonly IBudgetRepository _budgetRepository;
+        private readonly IBudgetRepository _budgetRepository;
+        private readonly IUserService _userService;
 
-        public BudgetService(IBudgetRepository budgetRepository)
+        public BudgetService(IBudgetRepository budgetRepository, IUserService userService)
         {
             _budgetRepository = budgetRepository;
+            _userService = userService;
         }
         public async Task<bool> AtualizarBudget(int id, CreateBudgetDto BudgetDto)
         {
@@ -21,14 +23,15 @@ namespace CoinCompassAPI.Application.Service
                 throw new Exception("orcamento não encontrado para atualizar.");
             }
 
-            orcamento.Update(BudgetDto.UsuarioId, BudgetDto.Categoria, BudgetDto.Quantia, BudgetDto.DataInicio, BudgetDto.DataFim);
+            orcamento.Update(BudgetDto.Categoria, BudgetDto.Quantia, BudgetDto.DataInicio, BudgetDto.DataFim);
 
             return true;
         }
 
         public async Task CadastrarBudget(CreateBudgetDto BudgetDto)
         {
-            var orcamento = new Budget(BudgetDto.UsuarioId, BudgetDto.Categoria, BudgetDto.Quantia, BudgetDto.DataInicio, BudgetDto.DataFim);
+            var currentUser = await _userService.GetCurrentUser();
+            var orcamento = new Budget(currentUser.Id, BudgetDto.Categoria, BudgetDto.Quantia, BudgetDto.DataInicio, BudgetDto.DataFim);
             await _budgetRepository.AddAsync(orcamento);
         }
 
@@ -47,7 +50,6 @@ namespace CoinCompassAPI.Application.Service
 
             return new CreateBudgetDto
             {
-                UsuarioId = orcamento.UserId,
                 Categoria = orcamento.Category,
                 Quantia = orcamento.Amount,
                 DataInicio = orcamento.StartDate,

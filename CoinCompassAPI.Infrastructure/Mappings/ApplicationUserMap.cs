@@ -52,6 +52,7 @@ namespace CoinCompassAPI.Infrastructure.Mappings
 
             builder.Property(u => u.AccessFailedCount)
                    .IsRequired();
+
         }
     }
 }

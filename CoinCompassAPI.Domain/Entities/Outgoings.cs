@@ -3,16 +3,17 @@
     public class Outgoings
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
         public string TypeOutgoings { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public string HowPaid { get; set; }
         public decimal AmountOutGoings { get; set; }
+        public string UserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public Outgoings() { }
 
-        public Outgoings(int userId, string typeOutgoings, DateTime date, string description, string howPaid, decimal amountOutGoings)
+        public Outgoings(string userId, string typeOutgoings, DateTime date, string description, string howPaid, decimal amountOutGoings)
         {
             UserId = userId;
             TypeOutgoings = typeOutgoings;
@@ -22,9 +23,8 @@
             AmountOutGoings = amountOutGoings;
         }
 
-        public void Update(int userId, string typeOutgoings, DateTime date, string description, string howPaid, decimal amountOutGoings)
+        public void Update(string typeOutgoings, DateTime date, string description, string howPaid, decimal amountOutGoings)
         {
-            UserId = userId;
             TypeOutgoings = typeOutgoings;
             Date = date;
             Description = description;

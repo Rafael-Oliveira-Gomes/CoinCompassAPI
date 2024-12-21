@@ -30,6 +30,11 @@ namespace CoinCompassAPI.Infrastructure.Mappings
             builder.Property(a => a.BankName)
                 .IsRequired()
                 .HasMaxLength(100);
+
+            builder.HasOne(a => a.User)
+                .WithMany()
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.Restrict); // Adicionado OnDelete: Restrict
         }
     }
 }

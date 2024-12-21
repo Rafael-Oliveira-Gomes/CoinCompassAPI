@@ -4,8 +4,6 @@ namespace CoinCompassAPI.Application.DTOs.Investment
 {
     public class CreateInvestmentDto
     {
-        [Required]
-        public int UsuarioId { get; set; }
 
         [Required]
         public string TipoInvestimento { get; set; }

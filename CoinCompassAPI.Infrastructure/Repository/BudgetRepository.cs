@@ -14,7 +14,7 @@ namespace CoinCompassAPI.Infrastructure.Repository
             return await _context.Orcamentos.FindAsync(id);
         }
 
-        public async Task<Budget> ConsultarOrcamentoPorUsuarioId(int usuarioId)
+        public async Task<Budget> ConsultarOrcamentoPorUsuarioId(string usuarioId)
         {
             try
             {

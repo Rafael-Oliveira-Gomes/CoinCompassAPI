@@ -2,10 +2,6 @@
 {
     public class CreateOutgoingsDto
     {
-        /// <summary>
-        /// ID do Usuário. Requerido.
-        /// </summary>
-        public int UserId { get; set; }
 
         /// <summary>
         /// Tipo de Despesa. Requerido.
