@@ -34,7 +34,8 @@ namespace CoinCompassAPI.Application.Service
         public async Task CadastrarInvestment(CreateInvestmentDto InvestmentDto)
         {
             var currentUser = await _userService.GetCurrentUser();
-            _validacoesFinanceiras.VerificarOrcamento(currentUser.Id,InvestmentDto.Quantia, InvestmentDto.DataFim);
+            bool instimento = true;
+            _validacoesFinanceiras.VerificarOrcamento(currentUser.Id,InvestmentDto.Quantia, InvestmentDto.DataFim, InvestmentDto.DataInicio, instimento);
             var investimento = new Investment(currentUser.Id, InvestmentDto.TipoInvestimento, InvestmentDto.Quantia, InvestmentDto.DataInicio, InvestmentDto.DataFim);
 
             await _investimentoRepository.AddAsync(investimento);
