@@ -6,7 +6,7 @@ namespace CoinCompassAPI.Application.Interface
     {
         Task CriarOutGoings(CreateOutgoingsDto OutGoingsDto);
         Task<IEnumerable<CreateOutgoingsDto>> ConsultarOutGoings(int skip = 0, int take = 20);
-        Task<CreateOutgoingsDto> ConsultarOutGoingsPorID(int id);
+        Task<ReadOutGoingsDto> ConsultarOutGoingsPorID(int id);
         Task<bool> AtualizarOutGoings(int id, CreateOutgoingsDto outGoingstDto);
         Task<bool> DeletarOutGoings(int id);
     }
