@@ -40,7 +40,7 @@ namespace CoinCompassAPI.Application.Service
             throw new NotImplementedException();
         }
 
-        public async Task<CreateBudgetDto> ConsultarBudgetPorID(int id)
+        public async Task<ReadBudgetDto> ConsultarBudgetPorID(int id)
         {
             var orcamento = await _budgetRepository.ConsultarOrcamentoPorID(id);
             if (orcamento == null)
@@ -48,8 +48,10 @@ namespace CoinCompassAPI.Application.Service
                 throw new Exception("Orçamento não encontrado para consultar!");
             }
 
-            return new CreateBudgetDto
+            return new ReadBudgetDto
             {
+                UserName = orcamento.User.UserName,
+                Email = orcamento.User.Email,
                 Categoria = orcamento.Category,
                 Quantia = orcamento.Amount,
                 DataInicio = orcamento.StartDate,

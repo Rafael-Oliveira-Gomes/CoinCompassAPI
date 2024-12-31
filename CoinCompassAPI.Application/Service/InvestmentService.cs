@@ -46,7 +46,7 @@ namespace CoinCompassAPI.Application.Service
             throw new NotImplementedException();
         }
 
-        public async Task<CreateInvestmentDto> ConsultarInvestmentPorID(int id)
+        public async Task<ReadInvestmentDto> ConsultarInvestmentPorID(int id)
         {
             var investimento = await _investimentoRepository.ConsultarInvestimentoPorID(id);
             if (investimento == null)
@@ -54,9 +54,10 @@ namespace CoinCompassAPI.Application.Service
                 throw new Exception("investimento não encontrado para consultar!");
             }
 
-            return new CreateInvestmentDto
+            return new ReadInvestmentDto
             {
-                
+                UswrName = investimento.User.UserName,
+                Email = investimento.User.Email,
                 TipoInvestimento = investimento.InvestmentType,
                 Quantia = investimento.Amount,
                 TaxaJuros = investimento.InterestRate,

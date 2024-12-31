@@ -40,7 +40,7 @@ namespace CoinCompassAPI.Application.Service
             throw new NotImplementedException();
         }
 
-        public async Task<CreateAccountDto> ConsultarAccountPorID(int id)
+        public async Task<ReadAccountDto> ConsultarAccountPorID(int id)
         {
             var conta = await _accountRepository.ConsultarContaoPorID(id);
             if (conta == null)
@@ -48,9 +48,10 @@ namespace CoinCompassAPI.Application.Service
                 throw new Exception("Conta não encontrado para consultar!");
             }
 
-            return new CreateAccountDto
+            return new ReadAccountDto
             {
-                
+                UserName = conta.User.UserName,
+                Email = conta.User.Email,
                 TipoConta = conta.AccountType,
                 Saldo = conta.Balance,
                 NomeBanco = conta.BankName,
