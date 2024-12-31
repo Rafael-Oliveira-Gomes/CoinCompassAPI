@@ -50,7 +50,7 @@ namespace CoinCompassAPI.Application.Service
             throw new NotImplementedException();
         }
 
-        public async Task<CreateSavingsGoalDto> ConsultarSavingsGoalPorID(int id)
+        public async Task<ReadSavingsGoalDto> ConsultarSavingsGoalPorID(int id)
         {
             var metaEconomica = await _savingsGoalRepository.ConsultarMetaEconomiaPorID(id);
             if (metaEconomica == null)
@@ -58,8 +58,10 @@ namespace CoinCompassAPI.Application.Service
                 throw new Exception("metaEconomica não encontrado para consultar!");
             }
 
-            return new CreateSavingsGoalDto
+            return new ReadSavingsGoalDto
             {
+                UserName = metaEconomica.User.UserName,
+                Email = metaEconomica.User.Email,
                 NomeMeta = metaEconomica.GoalName,
                 DataObjetivo = metaEconomica.TargetDate,
                 QuantiaAtual = metaEconomica.CurrentAmount,

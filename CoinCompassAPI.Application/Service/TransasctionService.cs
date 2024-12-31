@@ -37,7 +37,7 @@ namespace CoinCompassAPI.Application.Service
             throw new NotImplementedException();
         }
 
-        public async Task<CreateTransactionDto> ConsultarTransactionPorID(int id)
+        public async Task<ReadTransactionDto> ConsultarTransactionPorID(int id)
         {
             var transacao = await _transactionRepository.ConsultarTansacaoPorID(id);
             if (transacao == null)
@@ -45,9 +45,9 @@ namespace CoinCompassAPI.Application.Service
                 throw new Exception("transacao não encontrado para consultar!");
             }
 
-            return new CreateTransactionDto
+            return new ReadTransactionDto
             {
-
+                //UserName = transacao.User
                 ContaId = transacao.AccountId,
                 Tipo = transacao.Type,
                 Quantia = transacao.Amount,

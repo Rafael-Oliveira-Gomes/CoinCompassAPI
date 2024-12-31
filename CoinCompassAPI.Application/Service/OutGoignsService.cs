@@ -36,7 +36,7 @@ namespace CoinCompassAPI.Application.Service
             throw new NotImplementedException();
         }
 
-        public async Task<CreateOutgoingsDto> ConsultarOutGoingsPorID(int id)
+        public async Task<ReadOutGoingsDto> ConsultarOutGoingsPorID(int id)
         {
             var gasto = await _outgoingsRepository.ConsultarGastosPorID(id);
             if (gasto == null)
@@ -44,8 +44,10 @@ namespace CoinCompassAPI.Application.Service
                 throw new Exception("gasto não encontrado para consultar!");
             }
 
-            return new CreateOutgoingsDto
+            return new ReadOutGoingsDto
             {
+                UserName = gasto.User.UserName,
+                Email = gasto.User.Email,
                 Descricao = gasto.Description,
                 Data = gasto.Date,
                 ValorDespesa = gasto.AmountOutGoings,
