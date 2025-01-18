@@ -1,9 +1,11 @@
 ﻿using CoinCompassAPI.Application.DTOs.Investment;
 using CoinCompassAPI.Application.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoinCompassAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class InvestmentController : ControllerBase
